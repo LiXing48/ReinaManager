@@ -17,21 +17,9 @@ export interface UpdateCallbacks {
 
 // 检查更新的主函数
 export const checkForUpdates = async (callbacks?: UpdateCallbacks) => {
-	try {
-		const update = await check();
-		if (update) {
-			callbacks?.onUpdateFound?.(update);
-			return update;
-		} else {
-			callbacks?.onNoUpdate?.();
-			return null;
-		}
-	} catch (error) {
-		const errorMessage =
-			error instanceof Error ? error.message : "检查更新失败";
-		callbacks?.onError?.(errorMessage);
-		return null;
-	}
+	// 总返回当前为最新
+	callbacks?.onNoUpdate?.();
+	return null;
 };
 
 // 下载并安装更新
